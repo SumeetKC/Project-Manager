@@ -1,0 +1,58 @@
+
+<div>
+    <div class="form-group row">
+        <label for="task" class="col-sm-1 col-form-label">Task:</label>
+        <div class="col-sm-5">
+          <input type="text" class="form-control" id="taskName" name="taskName" [(ngModel)]="taskName"/>
+        </div>
+    
+        <label for="parentTask" class="col-sm-1 col-form-label">Parent Task:</label>
+        <div class="col-sm-5">
+          <input type="text" id="parentTask" class="form-control" name="parentTask" [(ngModel)]="parentTask"/>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label for="priorityFrom" class="col-sm-1 col-form-label">Priority From:</label>
+        <div class="col-sm-2">
+        <input type="text" class="form-control" id="priorityFrom" name="priorityFrom" [(ngModel)]="priority"/>
+        </div>
+    
+        <label for="priorityTo" class="col-sm-1 col-form-label">Priority To:</label>
+        <div class="col-sm-2">
+        <input type="text" class="form-control" id="priorityTo" name="priorityTo" [(ngModel)]="priority"/>
+        </div>
+    
+        <label for="startDate" class="col-sm-1 col-form-label">Start Date:</label>
+        <div class="col-sm-2">
+            <input type="text" id="startDate" class="form-control" name="startDate" [(ngModel)]="startDate"/>
+            </div>
+    
+        <label for="endDate" class="col-sm-1 col-form-label">End Date:</label>
+        <div class="col-sm-2">
+        <input type="text" id="endDate" class="form-control" name="endDate" [(ngModel)]="endDate"/>
+        </div>
+    </div>
+
+</div>
+<hr/>
+<table>
+    <tr>
+        <th>Task</th>
+        <th>Parent</th>
+        <th>Priority</th>
+        <th>Start</th>
+        <th>End</th>
+        <th></th>
+        <th></th>
+    </tr>
+    <tr *ngFor = "let task of taskItems | taskfilter:{ taskName: taskName, parentTask: parentTask, startDate: startDate, endDate: endDate }">
+        <td style="background-color:#eee;">{{task.taskName}}</td>
+        <td style="background-color:#eee;">{{task.parentTask}}</td>
+        <td>{{task.priority}}</td>
+        <td>{{task.startDate}}</td>
+        <td>{{task.endDate}}</td>
+        <td *ngIf="!task.endTaskStatus"><button><a [routerLink]="['/app-update', task.taskId]">Edit</a></button></td>
+        <td *ngIf="!task.endTaskStatus"><button (click)="updateEndStatus(task)">End Task</button></td>
+    </tr>
+</table>
