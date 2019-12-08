@@ -1,1 +1,64 @@
-<p>add-user works!</p>
+
+<div class="col-sm-8">
+  <form class="form-horizontal" #userForm="ngForm" (ngSubmit)="addUser(user); userForm.reset()" >
+    <div class="form-group row">
+        <label for="firstName" class="col-sm-2 col-form-label">First Name:</label>
+        <div class="col-sm-6">
+          <input type="text" class="form-control" id="firstName" name="firstName" required [(ngModel)]="user.firstName"/>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="lastName" class="col-sm-2 col-form-label">Last Name:</label>
+        <div class="col-sm-6">
+          <input type="text" class="form-control" id="lastName" name="lastName" required [(ngModel)]="user.lastName"/>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="employeeId" class="col-sm-2 col-form-label">Employee ID:</label>
+        <div class="col-sm-4">
+          <input type="text" class="form-control" id="employeeId" name="employeeId" required [(ngModel)]="user.employeeId"/>
+        </div>
+    </div>
+    
+      <div class="col-sm-4" style="text-align: center">
+        <button type = "submit" class="btn btn-success" > Add </button>
+      </div>
+        <div class="col-sm-2">  
+          <button type = "reset" class="btn btn-light">Reset</button>
+        </div>
+  </form>
+  </div>
+  <div class="col-sm-8">
+      <hr/>
+      <div style="margin-top: 20px;">
+          <div class="col-sm-3">
+              <input type="text" placeholder="Search" class="form-control" id="search" name="search" />
+          </div>
+            <div class="col-sm-1">
+                <label class="col-form-label">Sort:</label>
+            </div>
+            <div class="col-sm-2">
+                <button type = "reset" class="btn btn-light">First Name</button>
+            </div>
+            <div class="col-sm-2">
+                <button type = "reset" class="btn btn-light">Last Name</button>
+            </div>
+            <div class="col-sm-2">
+                <button type = "reset" class="btn btn-light">Id</button>
+            </div>
+          </div>
+
+          <div class="col-sm-6" style="margin-top: 20px;">
+            <div>First Name</div>
+            <div>Last Name</div>
+            <div>Employee Id</div>
+          </div>
+          <div class="col-sm-2" style="margin-top: 20px;">
+              <button type = "button" class="btn btn-light">Edit</button>
+              <button type = "button" class="btn btn-light">Delete</button>
+          </div>
+  
+  </div>
+ 
+
+  

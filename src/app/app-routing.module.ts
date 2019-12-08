@@ -14,7 +14,7 @@ const routes: Routes = [
   { path: 'app-add-task', component: AddTaskComponent },
   { path: 'app-view-task', component: ViewTaskComponent },
   { path: 'app-update-task', component: UpdateTaskComponent }
-  
+
 ];
 
 @NgModule({

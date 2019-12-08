@@ -1,1 +1,128 @@
-<p>add-project works!</p>
+
+<div class="col-sm-12">
+    <div class="text-danger" *ngIf="error.isError">{{error.errorMessage}}</div>
+    <form class="form-horizontal" #projectForm="ngForm" (ngSubmit)="addProject(project); projectForm.reset()" >
+      <div class="form-group row">
+          <label for="projectName" class="col-sm-1 col-form-label">Project:</label>
+          <div class="col-sm-7">
+            <input type="text" class="form-control" id="projectName" name="projectName" required [(ngModel)]="project.projectName"/>
+          </div>
+      </div>
+      <div class="form-group row">
+        <label for="projectName" class="col-sm-1 col-form-label"></label>
+        <div class="col-sm-8">
+          <div class="custom-control custom-checkbox col-sm-4">
+              <input type="checkbox" class="custom-control-input" id="setstartenddate" name="setstartenddate" (change)="enableDate()">
+              <label class="custom-control-label" for="setstartenddate">Set Start and End Date</label>
+          </div>
+          <div class="col-sm-3">
+            <input type="date" placeholder="Start Date" class="form-control" id="startDate" name="startDate" [disabled]="isDisabled" required [(ngModel)]="project.startDate"/>
+          </div>
+          <div class="col-sm-3">
+            <input type="date" placeholder="End Date" class="form-control" id="endDate" name="endDate" [disabled]="isDisabled" required [(ngModel)]="project.endDate"/>
+          </div>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="priority" class="col-sm-1 col-form-label">Priority:</label>
+        <div class="col-sm-6">
+        <input type="range" min="0" max="30" class="form-control" id="priority" name="priority" required [(ngModel)]="project.priority" />
+    </div>
+    </div>
+      <div class="form-group row">
+          <label for="managerName" class="col-sm-1 col-form-label">Manager:</label>
+          <div >
+            <div class="col-sm-5">
+              <input type="text" class="form-control" id="managerName" name="managerName" data-toggle="modal" data-target="#managerName" required [(ngModel)]="project.managerName"/>
+          </div>
+          <div class="col-sm-2">
+              <button type="button" class="btn btn-light">Search</button>
+            
+            </div>
+          </div>
+      </div>
+      <div class="col-sm-8">
+        <div *ngIf="update; else elseBlock" class="col-sm-6" style="text-align: center">
+                <button type = "submit" class="btn btn-success">Update</button>
+        </div>
+        <ng-template #elseBlock>
+        <div class="col-sm-6" style="text-align: center">
+              <button type = "submit" class="btn btn-success">Add</button>
+          </div>
+        </ng-template>
+          <div class="col-sm-2">  
+            <button type = "reset" class="btn btn-light">Reset</button>
+          </div>
+        </div>
+    </form>
+    </div>
+<div class="col-sm-8">
+   <hr/>
+      <div>
+        <div class="col-sm-1"></div>
+        <div class="col-sm-10">
+            <input type="text" placeholder="Search" class="form-control" id="search" name="search" [(ngModel)]="search"/>
+        </div>
+      </div>
+      <div class="row">
+        </div>
+      <div style="margin-top: 20px;">
+          <div class="col-sm-1"></div>
+          <div class="col-sm-2">
+              <label class="col-form-label">Sort By:</label>
+          </div>
+          <div class="col-sm-2">
+              <button type = "reset" class="btn btn-light">Start Date</button>
+          </div>
+          <div class="col-sm-2">
+              <button type = "reset" class="btn btn-light">End Date</button>
+          </div>
+          <div class="col-sm-2">
+              <button type = "reset" class="btn btn-light">Priority</button>
+          </div>
+          <div class="col-sm-2">
+              <button type = "reset" class="btn btn-light">Completed</button>
+          </div>
+        </div>
+
+<div class="row">
+  </div>
+
+  <div style="margin-top: 20px;">
+      <table *ngFor = "let project of projectItems | projectfilter: { projectName: search}">
+      <div class="col-sm-1"></div>
+      <div class="col-sm-7">
+            <tr style="background-color:#eee;">
+              <td><b>Project: </b></td>
+              <td colspan="3" >{{project.projectName}}</td>
+            </tr>
+            <tr style="background-color:#eee;">
+              <td><b>No. of Tasks: </b></td>
+              <td>Value</td>
+              <td><b>Completed: </b></td>
+              <td>Value</td>
+            </tr>
+            <tr style="background-color:#eee;">
+                <td><b>Start Date: </b></td>
+                <td >{{project.startDate}}</td>
+                <td><b>End Date: </b></td>
+                <td >{{project.endDate}}</td>
+              </tr>
+      
+      </div>
+      <div class="col-sm-2">
+            <tr>
+              <td><b>Priority</b></td>
+            </tr>
+            <tr rowspan="2" style="background-color:#eee;">
+              <td>{{project.priority}}</td>
+            </tr>
+      </div>
+      <div class="col-sm-2">
+          <button type = "button" class="btn btn-light" (click)="enableUpdate(project)">Update</button>
+          <button type = "button" class="btn btn-light">Suspend</button>
+      </div>
+      </table>
+    </div>
+</div>
+  

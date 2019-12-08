@@ -1,44 +1,73 @@
 
-<div class="col-sm-8"> 
-    <form class="form-horizontal" #taskForm="ngForm" (ngSubmit)="updateTask(task); taskForm.reset()" >
-      <div class="form-group row">
-          <label for="taskName" class="col-sm-2 col-form-label">Task:</label>
-          <div class="col-sm-6">
-            <input type="text" class="form-control" id="taskName" name="taskName" required [(ngModel)]="task.taskName"/>
-          </div>
+<div class="col-sm-10"> 
+  <form class="form-horizontal" #taskForm="ngForm" (ngSubmit)="updateTask(task); taskForm.reset()" >
+    <div class="form-group row">
+      <label for="projectName" class="col-sm-2 col-form-label">Project: </label>
+      <div class="col-sm-6">
+        <input type="text" class="form-control" id="projectName" name="projectName" required [(ngModel)]="task.projectName"/>
       </div>
-      <div class="form-group row">
-          <label for="priority" class="col-sm-2 col-form-label">Priority:</label>
-          <div class="col-sm-6">
-          <input type="range" min="0" max="30" class="form-control" id="priority" name="priority" required [(ngModel)]="task.priority" />
-          </div>
+      <div class="col-sm-1">
+          <button type="button" class="btn btn-light">Search</button>
       </div>
-      <div class="form-group row">
-          <label for="parentTask" class="col-sm-2 col-form-label">Parent Task:</label>
-          <div class="col-sm-6">
-            <input type="text" id="parentTask" class="form-control" name="parentTask" [(ngModel)]="task.parentTask"/>
-          </div>
-      </div>
-      <div class="form-group row">
-          <label for="startDate" class="col-sm-2 col-form-label">Start Date:</label>
-          <div class="col-sm-6">
-              <input type="date" id="startDate" class="form-control" name="startDate" required [(ngModel)]="task.startDate"/>
-              </div>
-      </div>
-      <div class="form-group row">
-          <label for="endDate" class="col-sm-2 col-form-label">End Date:</label>
-          <div class="col-sm-6">
-          <input type="date" id="endDate" class="form-control" name="endDate" required [(ngModel)]="task.endDate"/>
-          </div>
-      </div>
-      
-        <div class="col-sm-2" style="text-align: center">
-          <button type = "submit" class="btn btn-success" >Update</button>
+  </div>
+    <div class="form-group row">
+        <label for="taskName" class="col-sm-2 col-form-label">Task:</label>
+        <div class="col-sm-6">
+          <input type="text" class="form-control" id="taskName" name="taskName" required [(ngModel)]="task.taskName"/>
         </div>
-          <div class="col-sm-2">  
-            <button type = "reset" class="btn btn-light">Cancel</button>
-          </div>
-    
-    </form>
     </div>
-        
+    <div class="form-group row">
+        <label for="parentTaskCheck" class="col-sm-2 col-form-label"></label>
+        <div class="col-sm-8">
+          <div class="custom-control custom-checkbox col-sm-4">
+              <input type="checkbox" class="custom-control-input" id="parentTaskCheck" name="parentTaskCheck">
+              <label class="custom-control-label" for="parentTaskCheck">Parent Task</label>
+          </div>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="priority" class="col-sm-2 col-form-label">Priority:</label>
+        <div class="col-sm-6">
+        <input type="range" min="0" max="30" class="form-control" id="priority" name="priority" required [(ngModel)]="task.priority" />
+      </div>
+    </div>
+    <div class="form-group row">
+        <label for="parentTask" class="col-sm-2 col-form-label">Parent Task:</label>
+        <div class="col-sm-6">
+          <input type="text" id="parentTask" class="form-control" name="parentTask" [(ngModel)]="task.parentTask"/>
+        </div>
+        <div class="col-sm-1">
+            <button type="button" class="btn btn-light">Search</button>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="startDate" class="col-sm-2 col-form-label">Start Date:</label>
+        <div class="col-sm-2">
+            <input type="date" id="startDate" class="form-control" name="startDate" placeholder='' required [(ngModel)]="task.startDate"/>
+          </div>
+          <label for="endDate" class="col-sm-2 col-form-label">End Date:</label>
+          <div class="col-sm-2">
+            <input type="date" id="endDate" class="form-control" name="endDate" required [(ngModel)]="task.endDate"/>
+          </div>
+    </div>
+   
+    <div class="form-group row">
+      <label for="userName" class="col-sm-2 col-form-label">User :</label>
+      <div class="col-sm-6">
+        <input type="text" id="userName" class="form-control" name="userName" [(ngModel)]="task.userName"/>
+      </div>
+      <div class="col-sm-1">
+          <button type="button" class="btn btn-light">Search</button>
+      </div>
+  </div>
+    
+      <div class="col-sm-4" style="text-align: center">
+        <button type = "submit" class="btn btn-success" >Add Task</button>
+      </div>
+        <div class="col-sm-4">  
+          <button type = "reset" class="btn btn-light">Reset</button>
+        </div>
+
+  </form>
+  </div>
+  
