@@ -1,25 +1,34 @@
 
 <div class="col-sm-12">
     <div class="text-danger" *ngIf="error.isError">{{error.errorMessage}}</div>
-    <form class="form-horizontal" #projectForm="ngForm" (ngSubmit)="addProject(project); projectForm.reset()" >
+    <form class="form-horizontal" name="form" (ngSubmit)="projectForm.form.valid && addProject(project); projectForm.reset()" #projectForm="ngForm" novalidate>
       <div class="form-group row">
           <label for="projectName" class="col-sm-1 col-form-label">Project:</label>
           <div class="col-sm-7">
-            <input type="text" class="form-control" id="projectName" name="projectName" required [(ngModel)]="project.projectName"/>
+              <input type="text" class="form-control" name="projectName" [(ngModel)]="project.projectName" #projectName="ngModel" [ngClass]="{ 'is-invalid': projectForm.submitted && projectName.invalid }" required />
+              <div *ngIf="projectForm.submitted && projectName.invalid" class="invalid-feedback">
+                  <div class="text-danger" *ngIf="projectName.errors.required">Project Name is required</div>
+              </div>
           </div>
       </div>
       <div class="form-group row">
-        <label for="projectName" class="col-sm-1 col-form-label"></label>
+        <label class="col-sm-1 col-form-label"></label>
         <div class="col-sm-8">
           <div class="custom-control custom-checkbox col-sm-4">
               <input type="checkbox" class="custom-control-input" id="setstartenddate" name="setstartenddate" (change)="enableDate()">
               <label class="custom-control-label" for="setstartenddate">Set Start and End Date</label>
           </div>
           <div class="col-sm-3">
-            <input type="date" placeholder="Start Date" class="form-control" id="startDate" name="startDate" value="{{ dateString }}" [disabled]="isDisabled" required [(ngModel)]="project.startDate"/>
+            <input type="date" class="form-control" name="startDate" [(ngModel)]="project.startDate" #startDate="ngModel" [disabled]="isDisabled" [ngClass]="{ 'is-invalid': projectForm.submitted && startDate.invalid }" required />
+              <div *ngIf="projectForm.submitted && startDate.invalid" class="invalid-feedback">
+                  <div class="text-danger" *ngIf="startDate.errors.required">Start Date is required</div>
+              </div>
           </div>
           <div class="col-sm-3">
-            <input type="date" placeholder="End Date" class="form-control" id="endDate" name="endDate" [disabled]="isDisabled" required [(ngModel)]="project.endDate"/>
+              <input type="date" class="form-control" name="endDate" [(ngModel)]="project.endDate" #endDate="ngModel" [disabled]="isDisabled" [ngClass]="{ 'is-invalid': projectForm.submitted && endDate.invalid }" required />
+              <div *ngIf="projectForm.submitted && endDate.invalid" class="invalid-feedback">
+                  <div class="text-danger" *ngIf="endDate.errors.required">End Date is required</div>
+              </div>
           </div>
         </div>
     </div>
@@ -33,12 +42,15 @@
           <label for="managerName" class="col-sm-1 col-form-label">Manager:</label>
           <div >
             <div class="col-sm-5">
-              <input type="text" class="form-control" id="managerName" name="managerName" data-toggle="modal" data-target="#managerName" required [(ngModel)]="project.managerName"/>
+              <input type="text" class="form-control" [disabled]="true" name="managerName" data-toggle="modal" data-target="#managerName" [(ngModel)]="project.managerName" #managerName="ngModel" [ngClass]="{ 'is-invalid': projectForm.submitted && managerName.invalid }" required />
+              <div *ngIf="projectForm.submitted && managerName.invalid" class="invalid-feedback">
+                  <div class="text-danger" *ngIf="managerName.errors.required">Manager Name is required</div>
+              </div>
           </div>
           <div class="col-sm-2">
               <button type="button" class="btn btn-light" data-toggle="modal" data-target="#userModal">Search</button>
               <!-- Modal -->
-                <div id="userModal" class="modal fade" role="dialog">
+                <div id="userModal" class="modal fade" role="dialog" tabindex="-1">
                   <div class="modal-dialog">
 
                     <!-- Modal content-->
@@ -48,15 +60,15 @@
                         <h4 class="modal-title">Managers</h4>
                       </div>
                       <div class="modal-body">
-                        <div class="col-sm-6">
                           <div>
-                              <input type="text" placeholder="Search" class="form-control" id="search" name="search" [(ngModel)]="search"/>
+                              <input type="text" placeholder="Search" class="form-control" id="userSearch" name="userSearch" [(ngModel)]="userSearch"/>
+                              <br/>
+                              <ul class="list-group" *ngFor="let user of userItems | userfilter: { firstName: userSearch}">
+                                  <button type="button" class="list-group-item" data-dismiss="modal" (click)="setManager(user.firstName)">{{user.firstName}}</button>
+                              </ul>
                           </div>
-                          <select >
-                            <option *ngFor="let user of userItems | userfilter: { firstName: search}" [value]="user">{{user.firstName}}</option>
-                        </select>
                         </div>
-                      </div>
+                  
                       <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                       </div>
@@ -146,8 +158,8 @@
             </tr>
       </div>
       <div class="col-sm-2">
-          <button type = "button" class="btn btn-light" (click)="enableUpdate(project)">Update</button>
-          <button type = "button" class="btn btn-light">Suspend</button>
+          <button type = "button" *ngIf="!project.projectEndStatus" class="btn btn-light" (click)="enableUpdate(project)">Update</button>
+          <button type = "button" *ngIf="!project.projectEndStatus" class="btn btn-light" (click)="updateEndStatus(project)">Suspend</button>
       </div>
       </table>
     </div>

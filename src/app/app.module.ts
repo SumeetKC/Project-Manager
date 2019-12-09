@@ -31,7 +31,7 @@ import { UserFilter } from './userfilter.pipe';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
   ],
   providers: [DatePipe],
   bootstrap: [AppComponent]

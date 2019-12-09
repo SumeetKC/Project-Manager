@@ -41,19 +41,19 @@ export class AddProjectComponent implements OnInit {
     return;
 }
 
-  validateDates(sDate: string, eDate: string) {
-    this.isValidDate = true;
-    if ((sDate == null || eDate == null)) {
-      this.error = {isError: true, errorMessage: 'Start date and end date are required.'};
-      this.isValidDate = false;
-    }
-
-    if ((sDate != null && eDate != null) && (eDate) < (sDate)) {
-      this.error = {isError: true, errorMessage: 'End date should be greater then start date.'};
-      this.isValidDate = false;
-    }
-    return this.isValidDate;
+validateDates(sDate: Date, eDate: Date) {
+  this.isValidDate = true;
+  if ((sDate == null || eDate == null)) {
+    this.error = {isError: true, errorMessage: 'Start date and end date are required.'};
+    this.isValidDate = false;
   }
+
+  if ((sDate != null && eDate != null) && (eDate) < (sDate)) {
+    this.error = {isError: true, errorMessage: 'End date should be greater then start date.'};
+    this.isValidDate = false;
+  }
+  return this.isValidDate;
+}
 
   enableUpdate(project: Project) {
     this.project = project;
@@ -61,7 +61,7 @@ export class AddProjectComponent implements OnInit {
   }
 
   addProject(project: Project): void  {
-    this.isValidDate = this.validateDates(this.project.startDate.toString(), this.project.endDate.toString());
+    this.isValidDate = this.validateDates(this.project.startDate, this.project.endDate);
     if (this.isValidDate) {
       this.projectservice.addProject(project).subscribe(data => { if (data) {
         this.ngOnInit();
@@ -71,13 +71,25 @@ export class AddProjectComponent implements OnInit {
   }
 
   updateProject(project: Project): void  {
-    this.isValidDate = this.validateDates(this.project.startDate.toString(), this.project.endDate.toString());
+    this.isValidDate = this.validateDates(this.project.startDate, this.project.endDate);
     if (this.isValidDate) {
       this.projectservice.updateProject(project).subscribe(data => { if (data) {
         this.ngOnInit();
       }
     });
   }
+  }
+
+  setManager(firstName: string) {
+    this.project.managerName = firstName;
+  }
+
+  updateEndStatus(project: Project)  {
+    this.projectservice.updateEndStatus(project).subscribe(data => {
+      if (data) {
+        this.ngOnInit();
+      }
+    });
   }
 
 }

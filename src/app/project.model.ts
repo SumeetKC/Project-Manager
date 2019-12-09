@@ -6,6 +6,7 @@ export class Project {
     endDate: Date;
     priority: number;
     managerName: string;
+    projectEndStatus: string;
 
     constructor() {
 

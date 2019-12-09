@@ -44,4 +44,12 @@ export class ProjectService {
     return this.http.get<Project>(this.apiUrl + '/project/' + id).pipe(map(data => data));
     }
 
+      // Uppdating end status for task
+  updateEndStatus(project: Project): Observable<Project>  {
+    return this.http.put<Project>(this.apiUrl + '/projectstatus', project).pipe(
+      map(() => project),
+      catchError(this.handleError)
+    );
+  }
+
   }
