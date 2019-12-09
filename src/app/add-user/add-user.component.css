@@ -4,4 +4,9 @@ button{
 input {
     background-color:#eee;
 }
+.view {
+    background-color:#eee; 
+    margin: 6px;
+    
+}
 

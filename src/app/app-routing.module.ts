@@ -13,7 +13,8 @@ const routes: Routes = [
   { path: 'app-add-project', component: AddProjectComponent },
   { path: 'app-add-task', component: AddTaskComponent },
   { path: 'app-view-task', component: ViewTaskComponent },
-  { path: 'app-update-task', component: UpdateTaskComponent }
+  { path: 'app-update-task', component: UpdateTaskComponent },
+  { path: 'app-update-task/:id', component: UpdateTaskComponent }
 
 ];
 

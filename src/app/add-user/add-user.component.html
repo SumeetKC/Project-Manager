@@ -1,6 +1,6 @@
 
 <div class="col-sm-8">
-  <form class="form-horizontal" #userForm="ngForm" (ngSubmit)="addUser(user); userForm.reset()" >
+  <form class="form-horizontal" #userForm="ngForm" (ngSubmit)="userForm.reset()" >
     <div class="form-group row">
         <label for="firstName" class="col-sm-2 col-form-label">First Name:</label>
         <div class="col-sm-6">
@@ -10,7 +10,7 @@
     <div class="form-group row">
         <label for="lastName" class="col-sm-2 col-form-label">Last Name:</label>
         <div class="col-sm-6">
-          <input type="text" class="form-control" id="lastName" name="lastName" required [(ngModel)]="user.lastName"/>
+          <input type="text" class="form-control" id="lastName" name="lastName" required="required" [(ngModel)]="user.lastName"/>
         </div>
     </div>
     <div class="form-group row">
@@ -20,19 +20,26 @@
         </div>
     </div>
     
-      <div class="col-sm-4" style="text-align: center">
-        <button type = "submit" class="btn btn-success" > Add </button>
+    <div class="col-sm-8">
+      <div *ngIf="update; else elseBlock" class="col-sm-6" style="text-align: center">
+              <button type = "button" class="btn btn-success" (click)="updateUser(user)">Update</button>
       </div>
+      <ng-template #elseBlock>
+      <div class="col-sm-6" style="text-align: center">
+            <button type = "submit" class="btn btn-success" (click)="addUser(user);">Add</button>
+        </div>
+      </ng-template>
         <div class="col-sm-2">  
           <button type = "reset" class="btn btn-light">Reset</button>
         </div>
+      </div>
   </form>
   </div>
   <div class="col-sm-8">
       <hr/>
       <div style="margin-top: 20px;">
           <div class="col-sm-3">
-              <input type="text" placeholder="Search" class="form-control" id="search" name="search" />
+            <input type="text" placeholder="Search" class="form-control" id="search" name="search" [(ngModel)]="search"/>
           </div>
             <div class="col-sm-1">
                 <label class="col-form-label">Sort:</label>
@@ -47,16 +54,17 @@
                 <button type = "reset" class="btn btn-light">Id</button>
             </div>
           </div>
-
-          <div class="col-sm-6" style="margin-top: 20px;">
-            <div>First Name</div>
-            <div>Last Name</div>
-            <div>Employee Id</div>
+        <div *ngFor = "let user of userItems | userfilter: { firstName: search}">
+          <div class="col-sm-8" style="margin-top: 10px;">
+            <div class="view">{{user.firstName}}</div>
+            <div class="view">{{user.lastName}}</div>
+            <div class="view">{{user.employeeId}}</div>
           </div>
-          <div class="col-sm-2" style="margin-top: 20px;">
-              <button type = "button" class="btn btn-light">Edit</button>
-              <button type = "button" class="btn btn-light">Delete</button>
+          <div class="col-sm-2" style="margin-top: 10px;">
+              <button type = "button" class="btn btn-light" (click)="enableUpdate(user)">Edit</button>
+              <button type = "button" class="btn btn-light" (click)="deleteUser(user)">Delete</button>
           </div>
+        </div>
   
   </div>
  

@@ -20,7 +20,7 @@ export class AddProjectComponent implements OnInit {
   dateString: string;
   isValidDate: boolean;
   update = false;
-  error: any = {isError: false, errorMessage: ''};
+  error: any;
   isDisabled = true;
 
   constructor(private projectservice: ProjectService, private userservice: UserService, private datepipe: DatePipe) { }
@@ -28,9 +28,9 @@ export class AddProjectComponent implements OnInit {
   ngOnInit() {
     this.project.priority = 0;
     this.update = false;
-    this.dateString = this.datepipe.transform(new Date(), 'dd-MM-yyyy');
-    this.project.startDate = new Date();
-    console.log(this.project.startDate);
+    this.error = {isError: false, errorMessage: ''};
+    this.dateString = this.datepipe.transform(new Date(), 'MM/dd/yyyy');
+    console.log(this.dateString);
 
     this.userservice.viewUser().subscribe(userItems => {this.userItems = userItems; });
     this.projectservice.viewProject().subscribe(projectItems => {this.projectItems = projectItems; });

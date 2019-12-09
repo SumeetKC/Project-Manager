@@ -25,3 +25,7 @@ a{
 input {
         background-color:#eee;
 }
+
+.modal.show{
+    display: block;
+}
