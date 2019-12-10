@@ -26,6 +26,7 @@ export class AddUserComponent implements OnInit {
   }
 
   addUser(user: User): void  {
+    console.log(JSON.stringify(user));
     this.userservice.addUser(user).subscribe(data => { if (data) {
       this.ngOnInit();
  }

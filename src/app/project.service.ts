@@ -28,7 +28,7 @@ export class ProjectService {
 
   // Updating task
   updateProject(project: Project): Observable<Project> {
-    return this.http.put<Task>(this.apiUrl + '/updateproject', project).pipe(
+    return this.http.post<Task>(this.apiUrl + '/updateproject', project).pipe(
       map(() => project),
       catchError(this.handleError)
     );

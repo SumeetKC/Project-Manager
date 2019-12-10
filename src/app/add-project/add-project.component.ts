@@ -29,8 +29,6 @@ export class AddProjectComponent implements OnInit {
     this.project.priority = 0;
     this.update = false;
     this.error = {isError: false, errorMessage: ''};
-    this.dateString = this.datepipe.transform(new Date(), 'MM/dd/yyyy');
-    console.log(this.dateString);
 
     this.userservice.viewUser().subscribe(userItems => {this.userItems = userItems; });
     this.projectservice.viewProject().subscribe(projectItems => {this.projectItems = projectItems; });
@@ -90,6 +88,11 @@ validateDates(sDate: Date, eDate: Date) {
         this.ngOnInit();
       }
     });
+  }
+
+
+  sort(){
+    this.projectItems = this.projectItems.sort();
   }
 
 }

@@ -27,7 +27,7 @@ export class TaskService {
 
   // Updating task
   updateTask(task: Task): Observable<Task> {
-    return this.http.put<Task>(this.apiUrl + '/updatetask', task).pipe(
+    return this.http.post<Task>(this.apiUrl + '/updatetask', task).pipe(
       map(() => task),
       catchError(this.handleError)
     );
@@ -45,7 +45,7 @@ export class TaskService {
 
     // Uppdating end status for task
   updateEndStatus(task: Task): Observable<Task>  {
-    return this.http.put<Task>(this.apiUrl + '/updateendstatus', task).pipe(
+    return this.http.post<Task>(this.apiUrl + '/updateendstatus', task).pipe(
       map(() => task),
       catchError(this.handleError)
     );
